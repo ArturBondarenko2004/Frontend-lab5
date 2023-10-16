@@ -1,0 +1,6 @@
+.border p {
+	border: 1px solid black;
+	display: inline-block;
+	padding: 5px;
+	max-width: 100%;
+ }
