@@ -1,0 +1,17 @@
+
+ .image {
+	width: 150px;
+	height: 150px;
+	cursor: pointer;
+	transition: filter 0.3s, opacity 0.3s;
+ }
+
+ .active {
+	filter: grayscale(0%);
+	opacity: 1;
+ }
+
+ .inactive {
+	filter: grayscale(100%);
+	opacity: 0.5;
+ }

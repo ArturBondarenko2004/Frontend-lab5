@@ -1,0 +1,27 @@
+.form-container {
+	padding: 20px;
+	border: 1px solid #ccc;
+	margin: 10px;
+	width: 300px;
+}
+
+.form-section {
+	margin-bottom: 10px;
+	height: 70px;
+}
+
+.form-section label {
+	display: block;
+	padding: 5px;
+}
+
+.form-section input,
+.form-section textarea {
+	width: 90%;
+	padding: 5px;
+}
+
+.form-section.active {
+	background-color: blue;
+	width: 100%;
+}

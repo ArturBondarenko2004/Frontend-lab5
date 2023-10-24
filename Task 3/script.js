@@ -1,103 +1,100 @@
-// Створюємо елементи
-const h1 = document.createElement('h1');
-h1.textContent = 'Таблиця множення';
-document.body.appendChild(h1);
-
-const scoreElement = document.createElement('p');
-scoreElement.textContent = 'Загальний рахунок: 0';
-document.body.appendChild(scoreElement);
-
-const taskElement = document.createElement('p');
-taskElement.textContent = 'Завдання: ';
-document.body.appendChild(taskElement);
-
-const form = document.createElement('form');
-form.id = 'quizForm';
-document.body.appendChild(form);
-
-for (let i = 1; i <= 4; i++) {
-    const input = document.createElement('input');
-    input.type = 'radio';
-    input.id = `option${i}`;
-    input.name = 'answer';
-    form.appendChild(input);
-
-    const label = document.createElement('label');
-    label.htmlFor = `option${i}`;
-    label.id = `label${i}`;
-    form.appendChild(label);
-    form.appendChild(document.createElement('br'));
-}
-
-const checkButton = document.createElement('button');
-checkButton.type = 'button';
-checkButton.id = 'checkButton';
-checkButton.textContent = 'Перевірити';
-form.appendChild(checkButton);
-
-const resultElement = document.createElement('p');
-resultElement.id = 'result';
-document.body.appendChild(resultElement);
-
-// Опишемо питання та відповіді
-const questions = [
-    { question: '2 x 2', options: ['4', '6', '8', '10'], answer: '4' },
-    { question: '3 x 5', options: ['8', '10', '12', '15'], answer: '15' },
-    { question: '7 x 9', options: ['56', '63', '72', '81'], answer: '63' },
-    { question: '6 x 8', options: ['36', '42', '48', '54'], answer: '48' },
-];
-
-let currentQuestionIndex = 0;
+let index = 0;
 let score = 0;
-
-// Завантажуємо перше питання
-function loadQuestion() {
-    const currentQuestion = questions[currentQuestionIndex];
-    taskElement.textContent = `Завдання: ${currentQuestion.question}`;
-    for (let i = 1; i <= 4; i++) {
-        const option = document.getElementById(`option${i}`);
-        const label = document.getElementById(`label${i}`);
-        option.value = `option${i}`;
-        label.textContent = `Відповідь ${i}: ${currentQuestion.options[i - 1]}`;
-    }
-}
-
-// Перевірка відповіді та завантаження наступного питання
-// Перевірка відповіді та завантаження наступного питання
-function checkAnswer() {
+const questions = [
+	{
+	  task: "3 x 3 = ?",
+	  options: {
+		 optionA: 6,
+		 optionB: 8,
+		 optionC: 9,
+	  },
+	  correctAnswer: "optionC",
+	},
+	{
+	  task: "5 x 5 = ?",
+	  options: {
+		 optionA: 30,
+		 optionB: 25,
+		 optionC: 12,
+	  },
+	  correctAnswer: "optionB",
+	},
+	{
+		task: "8 x 8 = ?",
+		options: {
+		  optionA: 30,
+		  optionB: 28,
+		  optionC: 64,
+		},
+		correctAnswer: "optionC",
+	 },
+	 {
+		task: "3 x 7 = ?",
+		options: {
+		  optionA: 21,
+		  optionB: 28,
+		  optionC: 12,
+		},
+		correctAnswer: "optionA",
+	 },
+	 {
+		task: "5 x 6 = ?",
+		options: {
+		  optionA: 30,
+		  optionB: 28,
+		  optionC: 12,
+		},
+		correctAnswer: "optionA",
+	 },
+	 {
+		task: "7 x 7 = ?",
+		options: {
+		  optionA: 30,
+		  optionB: 28,
+		  optionC: 49,
+		},
+		correctAnswer: "optionC",
+	 }
+ ];
+ function taskQue() {
+	const question = questions[index];
+	const taskElement = document.getElementById("taskQue");
+	const optionAElement = document.getElementById("optionA");
+	const optionBElement = document.getElementById("optionB");
+	const optionCElement = document.getElementById("optionC");
+	taskElement.textContent = question.task;
+	optionAElement.textContent = question.options.optionA;
+	optionBElement.textContent = question.options.optionB;
+	optionCElement.textContent = question.options.optionC;
+ }
+ function checkAnswer() {
 	const selectedAnswer = document.querySelector('input[name="answer"]:checked');
 	if (!selectedAnswer) {
-		 alert('Будь ласка, виберіть відповідь.');
-		 return;
+	  return;
 	}
-
-	const userAnswer = selectedAnswer.nextSibling.textContent.split(': ')[2];
-	const correctAnswer = questions[currentQuestionIndex].answer;
-	if (userAnswer === correctAnswer) {
-		 score++;
-	}
-
-	currentQuestionIndex++;
-	if (currentQuestionIndex < questions.length) {
-		 loadQuestion();
+	const userAnswer = selectedAnswer.value;
+	const question = questions[index];
+	if (userAnswer === question.correctAnswer) {
+	  score++;
+	  document.getElementById("result").textContent = "Вау, клас!!!!!!Відповідь правильна!";
 	} else {
-		 showResult();
+	  document.getElementById("result").textContent = "Відповідь зовсім не правильна.А от вірна така: " + question.options[question.correctAnswer];
 	}
-}
-
-
-// Відображення результату
-function showResult() {
-    scoreElement.textContent = `Загальний рахунок: ${score} з ${questions.length}`;
-    form.style.display = 'none';
-
-    if (score === questions.length) {
-        resultElement.textContent = 'Вітаємо! Ви відповіли правильно на всі питання.';
-    } else {
-        resultElement.textContent = `Ви відповіли правильно на ${score} з ${questions.length} питань.`;
-    }
-}
-
-// Початкова загрузка питання та налаштування подій
-loadQuestion();
-document.getElementById('checkButton').addEventListener('click', checkAnswer);
+	document.getElementById("score").textContent = score;
+	document.querySelector('input[name="answer"]:checked').checked = false;
+	document.getElementById("checkButton").disabled = true;
+	document.getElementById("nextButton").disabled = false;
+ }
+ document.getElementById("checkButton").addEventListener("click", checkAnswer);
+ document.getElementById("nextButton").addEventListener("click", () => {
+	index++;
+	if (index < questions.length) {
+	  taskQue();
+	  document.getElementById("result").textContent = "";
+	  document.getElementById("checkButton").disabled = false;
+	  document.getElementById("nextButton").disabled = true;
+	} else {
+	  alert("Кінець. Загальний рахунок: " + score) + "правильних відповіденй з 6";
+	}
+ });
+ taskQue();

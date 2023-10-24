@@ -9,5 +9,30 @@
 </head>
 <body>
 
+
+  <p>Загальний рахунок: <span id="score">0</span> правильних відповідей з 6</p>
+
+  <p id="task">Завдання: <span id="taskQue"></span></p>
+
+  <form id="answerForm">
+    <label>
+      <input type="radio" name="answer" value="optionA"> <span id="optionA"></span>
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="answer" value="optionB"> <span id="optionB"></span>
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="answer" value="optionC"> <span id="optionC"></span>
+    </label>
+  </form>
+
+  <button id="checkButton">Перевірити</button>
+
+  <p id="result"></p>
+
+  <button id="nextButton">Наступне завдання</button>
+
 </body>
 </html>
