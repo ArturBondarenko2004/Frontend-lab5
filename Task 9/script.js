@@ -3,8 +3,7 @@ const productsData = [
 	{ name: 'Сорочка' },
 	{ name: 'Шорти' },
 	{ name: 'ТУфлі' },
-	{ name: 'Пес' },
-	{ name: 'шануріна' }
+	{ name: 'Пес' }
 ];
 const productList = document.getElementById('product-list');
 productsData.forEach(product => {
